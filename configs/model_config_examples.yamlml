@@ -1,0 +1,15 @@
+# Merge this model section into the team's existing configs/config.yaml.
+# Select one model name per training run.
+model:
+  name: "custom_cnn"       # custom_cnn | vgg16_frozen | vgg16_finetuned
+  filters: 32
+  dropout: 0.5
+  activation: "relu"
+  loss: "binary_crossentropy"
+  dense_units: 256
+  l2_strength: 0.0001
+  pretrained_weights: "imagenet"
+
+# For Model B: set name: "vgg16_frozen"
+# For Model C: set name: "vgg16_finetuned"
+# For Model C, set training.learning_rate in the main config to e.g. 0.00001.
