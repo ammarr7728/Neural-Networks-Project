@@ -1,11 +1,12 @@
+
 import argparse
 import random
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
 import tensorflow as tf
 import yaml
-import pandas as pd
 
 from src.data import load_datasets
 from src.models import build_model
@@ -23,19 +24,23 @@ def set_seed(seed):
 
 
 def train(config_path):
+    # Load configuration
     config = load_config(config_path)
 
     seed = config["training"]["seed"]
     set_seed(seed)
 
-    Path(config["paths"]["model_dir"]).mkdir(
-        parents=True, exist_ok=True
-    )
-    Path(config["paths"]["experiment_dir"]).mkdir(
-        parents=True, exist_ok=True
-    )
+    # Create output directories
+    model_dir = Path(config["paths"]["model_dir"])
+    experiment_dir = Path(config["paths"]["experiment_dir"])
 
-    train_ds, val_ds = load_datasets(config)
+    model_dir.mkdir(parents=True, exist_ok=True)
+    experiment_dir.mkdir(parents=True, exist_ok=True)
+
+    # Load datasets and class weights
+    train_ds, val_ds, class_weights = load_datasets(config)
+
+    # Build model
     model = build_model(config)
 
     model.compile(
@@ -53,8 +58,12 @@ def train(config_path):
 
     model.summary()
 
+    # Save the best model based on validation recall
+    best_model_path = Path(config["paths"]["best_model"])
+    best_model_path.parent.mkdir(parents=True, exist_ok=True)
+
     checkpoint = tf.keras.callbacks.ModelCheckpoint(
-        filepath=config["paths"]["best_model"],
+        filepath=str(best_model_path),
         monitor="val_recall",
         mode="max",
         save_best_only=True,
@@ -64,43 +73,46 @@ def train(config_path):
     early_stopping = tf.keras.callbacks.EarlyStopping(
         monitor="val_recall",
         mode="max",
-        patience=5,
+        patience=config["training"].get("patience", 5),
         restore_best_weights=True,
         verbose=1,
     )
 
+    # Train model
     history = model.fit(
         train_ds,
         validation_data=val_ds,
         epochs=config["training"]["epochs"],
+        class_weight=class_weights,
         callbacks=[checkpoint, early_stopping],
     )
 
-    history_path = (
-        Path(config["paths"]["experiment_dir"])
-        / "training_history.csv"
-    )
+    # Save training history
+    history_path = experiment_dir / f"training_history_seed_{seed}.csv"
 
     pd.DataFrame(history.history).to_csv(
-        history_path, index=False
+        history_path,
+        index=False
     )
 
-    print("Training completed successfully.")
-    print(f"Best model saved at: {config['paths']['best_model']}")
-    print(f"Training history saved at: {history_path}")
+    print("\nTraining completed successfully!")
+    print("Best model saved at:", best_model_path)
+    print("Training history saved at:", history_path)
+
+    return model, history
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Train the Chest X-Ray classification model"
+        description="Train Chest X-Ray Pneumonia Classifier"
     )
 
     parser.add_argument(
         "--config",
         type=str,
-        default="configs/config.yaml",
-        help="Path to the project configuration file",
+        default="configs/config.yaml"
     )
 
     args = parser.parse_args()
+
     train(args.config)
