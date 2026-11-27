@@ -1,3 +1,4 @@
+
 project:
   name: "Chest_XRay_Pneumonia_Classification"
   task: "Binary Image Classification"
@@ -7,7 +8,7 @@ project:
 dataset:
   name: "hf-vision/chest-xray-pneumonia"
   image_size: 224
-  channels: 3
+  channels: 1
   classes:
     - NORMAL
     - PNEUMONIA
@@ -17,6 +18,7 @@ training:
   epochs: 30
   learning_rate: 0.001
   seed: 42
+  patience: 5
 
 reproducibility:
   seeds:
@@ -25,6 +27,10 @@ reproducibility:
     - 2026
 
 model:
+  name: "custom_cnn"
+  filters: 32
+  dropout: 0.5
+  activation: "relu"
   output_activation: "sigmoid"
   loss: "binary_crossentropy"
 
