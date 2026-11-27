@@ -328,7 +328,10 @@ def build_augmentation():
             height_factor=0.05,
             width_factor=0.05
         ),
-        tf.keras.layers.RandomBrightness(0.1)
+        tf.keras.layers.RandomBrightness(
+            factor=0.1,
+            value_range=(0, 1)
+        )
     ], name="data_augmentation")
 
 
