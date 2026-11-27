@@ -433,4 +433,4 @@ def load_datasets(config):
 
     print("Class weights:", class_weights)
 
-    return train_ds, val_ds
+    return train_ds, val_dsو class_weights
