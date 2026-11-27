@@ -39,6 +39,7 @@ evaluation:
     - auc
 
 paths:
+  dataset_dir: "/content/chest_xray_clean"
   model_dir: "models"
   experiment_dir: "experiments"
   best_model: "models/best_model.keras"
