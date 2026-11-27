@@ -1,0 +1,6 @@
+experiment_id,architecture_name,change_from_baseline,conv_layers,filters,filter_sizes,pooling_type,dense_units,dropout,batch_normalization,regularization,random_seed,learning_rate,batch_size,val_accuracy,val_precision,val_pneumonia_recall,val_f1_score,val_roc_auc,parameter_count,training_time_seconds,notes
+ABL_001,Simple_CNN,Baseline architecture,3,32-64-128,3x3,MaxPooling,64,0.5,False,None,42,0.001,32,TBD,TBD,TBD,TBD,TBD,TBD,TBD,Reference architecture
+ABL_002,CNN_Fewer_Filters,Reduce convolution filters,3,16-32-64,3x3,MaxPooling,64,0.5,False,None,42,0.001,32,TBD,TBD,TBD,TBD,TBD,TBD,TBD,Compare filter count
+ABL_003,CNN_Lower_Dropout,Reduce dropout rate,3,32-64-128,3x3,MaxPooling,64,0.3,False,None,42,0.001,32,TBD,TBD,TBD,TBD,TBD,TBD,TBD,Compare dropout effect
+ABL_004,CNN_BatchNorm,Add batch normalization,3,32-64-128,3x3,MaxPooling,64,0.5,True,None,42,0.001,32,TBD,TBD,TBD,TBD,TBD,TBD,TBD,Compare batch normalization
+ABL_005,CNN_L2,L2 regularization,3,32-64-128,3x3,MaxPooling,64,0.5,False,L2,42,0.001,32,TBD,TBD,TBD,TBD,TBD,TBD,TBD,Compare L2 regularization
