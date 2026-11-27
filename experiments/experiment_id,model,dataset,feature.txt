@@ -1,0 +1,3 @@
+experiment_id,model,dataset,features,accuracy,precision,recall,f1_score,roc_auc,training_time_seconds,notes
+baseline_001,Traditional_ML,Chest_XRay_Pneumonia,TBD,TBD,TBD,TBD,TBD,TBD,TBD,Pending implementation
+baseline_002,Simple_CNN,Chest_XRay_Pneumonia,224x224_grayscale,TBD,TBD,TBD,TBD,TBD,TBD,Pending training
