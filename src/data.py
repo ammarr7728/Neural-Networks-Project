@@ -327,10 +327,6 @@ def build_augmentation():
         tf.keras.layers.RandomTranslation(
             height_factor=0.05,
             width_factor=0.05
-        ),
-        tf.keras.layers.RandomBrightness(
-            factor=0.1,
-            value_range=(0, 1)
         )
     ], name="data_augmentation")
 
