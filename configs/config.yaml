@@ -1,0 +1,44 @@
+project:
+  name: "Chest_XRay_Pneumonia_Classification"
+  task: "Binary Image Classification"
+  primary_metric: "pneumonia_recall"
+  positive_class: "PNEUMONIA"
+
+dataset:
+  name: "hf-vision/chest-xray-pneumonia"
+  image_size: 224
+  channels: 3
+  classes:
+    - NORMAL
+    - PNEUMONIA
+
+training:
+  batch_size: 32
+  epochs: 30
+  learning_rate: 0.001
+  seed: 42
+
+reproducibility:
+  seeds:
+    - 42
+    - 123
+    - 2026
+
+model:
+  output_activation: "sigmoid"
+  loss: "binary_crossentropy"
+
+evaluation:
+  primary_metric: "recall"
+  positive_class: "PNEUMONIA"
+  metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1_score
+    - auc
+
+paths:
+  model_dir: "models"
+  experiment_dir: "experiments"
+  best_model: "models/best_model.keras"
