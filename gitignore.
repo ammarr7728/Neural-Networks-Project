@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Dataset
+data/raw/
+data/processed/
+*.zip
+
+# Model files
+*.keras
+*.h5
+*.hdf5
+*.weights.h5
+models/checkpoints/
+
+# Experiment outputs
+experiments/logs/
+*.log
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
