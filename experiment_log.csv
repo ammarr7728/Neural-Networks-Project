@@ -1,4 +1,0 @@
-experiment_id,model,random_seed,learning_rate,batch_size,epochs,filters,dropout,augmentation,class_weights,best_epoch,train_accuracy,val_accuracy,val_precision,val_recall,val_f1_score,val_roc_auc,training_time_seconds,notes
-run_001,Simple_CNN,42,0.001,32,30,32,0.5,True,True,TBD,TBD,TBD,TBD,TBD,TBD,TBD,TBD,Initial CNN experiment
-run_002,Simple_CNN,123,0.001,32,30,32,0.5,True,True,TBD,TBD,TBD,TBD,TBD,TBD,TBD,TBD,Reproducibility experiment
-run_003,Simple_CNN,2026,0.001,32,30,32,0.5,True,True,TBD,TBD,TBD,TBD,TBD,TBD,TBD,TBD,Reproducibility experiment
